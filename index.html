@@ -1,0 +1,61 @@
+<DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+	<title>APP</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+
+</head>
+<body ng-controller="UploadCtrl">
+<div class="container">
+		<form name="myForm" novalidate>
+			<div class="col-xs-12 form-group">
+    			<label for="first_name" class="control-label">First Name</label>
+      			<input type="text" class="form-control" id="first_name" placeholder="Imię" name="sendFeedbackForm[first_name]" ng-model="first_name" required>
+    		</div>
+    		<div class="col-xs-12 form-group">
+    			<label for="last_name" class="control-label">Last Name</label>
+      			<input type="last_name" class="form-control" id="last_name" placeholder="Nazwisko" name="sendFeedbackForm[last_name]" ng-model="last_name" required>
+    		</div>
+    		<div class="col-xs-12 form-group">
+    			<label for="email" class="control-label">Email</label>
+      			<input type="email" class="form-control" id="email" placeholder="Email" name="sendFeedbackForm[email]" ng-model="email" required>
+    		</div>
+    		<div class="col-xs-12 form-group">
+    			<label for="subject" class="control-label">Subject</label>
+      			<input type="subject" class="form-control" id="subject" placeholder="Tytuł" name="sendFeedbackForm[message]" ng-model="message" required>
+    		</div>
+    		<div class="form-group">
+    			<label for="exampleInputFile" class="col-xs-2 control-label">File input</label>
+    			<div class="col-xs-10">
+	    			<input type="file" name="sendFeedbackForm[attachment]"
+	    				ng-model="file" 
+		    			accept="image/*,application/pdf"
+		    			ngf-max-height="10000"
+		    			ngf-max-size="15MB">
+	    			<p class="help-block">Choose what you want send to us.</p>
+	    		</div>
+  			</div>
+		</form>	
+		  	<ul ng-if="files.length > 0" ng-repeat="f in files">
+					<li>{{f.name}} </li>
+					
+		  </ul>
+		  {{errorMsg}}
+		  <button class="btn btn-default" type="submit" ng-click="submit()">Upload</button>
+</div>
+	
+  	
+
+
+	
+
+<script type="text/javascript" src="assets/js/angular.min.js"></script>
+<script type="text/javascript" src="assets/js/app.js"></script>
+<script type="text/javascript" src="assets/js/ng-file-upload.min.js"></script>
+</body>
+</html>
