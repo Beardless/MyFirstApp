@@ -10,7 +10,8 @@
         <p>Wyślij informację o zdarzeniu lub temacie do naszych redaktorów.</p>
 	</div>
     <div class="col-xs-12 form-group">
-        <textarea type="textarea" class="form-control" id="subject" placeholder="Treść zgłoszenia (wymagane)" name="message" ng-model="feedback.message" required></textarea>
+        <textarea type="textarea" class="form-control" id="subject" placeholder="Treść zgłoszenia (wymagane)" name="message" ng-model="feedback.message" ng-class="feedback.errors.message==false ? 'form-control' : 'form-control invalid'" required></textarea>
+        <span class="warning" ng-show="feedback.errors.message!==false">Treść nie może być pusta!</span>
     </div>
     <div class="clearfix"></div>
     <hr style="margin:0px 0px 10px 0px">
@@ -19,10 +20,10 @@
         <input type="file" class="form-control" file-model="feedback.file"/>
     </div>
     <div class="col-xs-12 form-group">
-        <input type="text" class="form-control" id="name" placeholder="Imię i Nazwisko (opcjonalne)" name="username" ng-model="feedback.name" required>
+        <input type="text" class="form-control" id="name" placeholder="Imię i Nazwisko (opcjonalne)" name="username" ng-model="feedback.name">
     </div>
     <div class="col-xs-12 form-group">
-        <input type="email" class="form-control" id="email" placeholder="Adres e-mail (opcjonalne)" name="email" ng-model="feedback.email" required>
+        <input type="email" class="form-control" id="email" placeholder="Adres e-mail (opcjonalne)" name="email" ng-model="feedback.email">
     </div>
     <button  ng-click="submit()" class="btn btn-success btn-xlarge center-block">
         <span class="glyphicon glyphicon-paperclip"></span> Wyślij informacje

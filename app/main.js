@@ -25,7 +25,17 @@ angular.module('MyApp', [])
                 $scope.feedback.errors.message = 'Treść zgłoszenia nie może być pusta.'
 
                 return false;
-            }
+            } else {
+                $scope.feedback.errors.message = false;
+            };
+
+            if ($scope.feedback.name.length == 0) {
+                $scope.feedback.name = 'Rysiek Anonim'
+            };
+
+            if ($scope.feedback.email.length == 0) {
+                $scope.feedback.email = 'kontak@podlasiesiedziej.pl'
+            };
 
             var fd = new FormData();
             fd.append('sendFeedbackForm[attachment]', $scope.feedback.file);

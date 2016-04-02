@@ -30,3 +30,9 @@ form .callout-bubble {
        -moz-border-radius: 8px;
             border-radius: 8px;
 }
+.invalid { 
+    border: 1px solid red;
+}
+.warning {
+    color: red;
+}
