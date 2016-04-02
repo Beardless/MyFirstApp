@@ -1,12 +1,20 @@
-<div class="row" ng-if="feedback.formVissible==false">
-	<div class="callout-bubble text-center fade-in-b">
-		<h4 ng-click="showForm()">Prześlij nam informacje!</h4>
-	</div>
+<div class="callout-bubble text-center fade-in-b" ng-if="feedback.formVissible==false && feedback.messageSent==false" ng-click="toggleForm(true)">
+    <h4>Prześlij nam informacje!</h4>
+</div>
+
+<div class="callout-bubble text-center fade-in-b" ng-if="feedback.formVissible==false && feedback.messageSent==true">
+    <h4>Dziękujemy!</h4>
+    <p>Twoja informacja została wysłana do redakcji</p>
+    <div class="col-xs-12 form-group">
+        <button ng-click="toggleForm(false)" class="btn btn-danger btn-large pull-left">Zamknij</button>
+        <button ng-click="toggleForm(true)" class="btn btn-success btn-large pull-right">Wyślij kolejną informację</button>
+    </div>
+    <div class="clearfix"></div>
 </div>
 
 <form class="hidden" name="notification" id="notification" novalidate>
-    <div class="callout-bubble text-center fade-in-b">
-		<h4 ng-click="showForm()">Prześlij nam informacje!</h4>
+    <div class="callout-bubble text-center fade-in-b" ng-click="toggleForm(false)">
+		<h4>Prześlij nam informacje!</h4>
         <p>Wyślij informację o zdarzeniu lub temacie do naszych redaktorów.</p>
 	</div>
     <div class="col-xs-12 form-group">
@@ -25,8 +33,9 @@
     <div class="col-xs-12 form-group">
         <input type="email" class="form-control" id="email" placeholder="Adres e-mail (opcjonalne)" name="email" ng-model="feedback.email">
     </div>
-    <button  ng-click="submit()" class="btn btn-success btn-xlarge center-block">
-        <span class="glyphicon glyphicon-paperclip"></span> Wyślij informacje
-    </button>
+    <div class="col-xs-12 form-group">
+        <button ng-click="toggleForm(false)" class="btn btn-danger btn-large pull-left">Zamknij</button>
+        <button ng-click="submit()" class="btn btn-success btn-large pull-right">Wyślij informacje</button>
+    </div>
     <div class="clearfix"></div>
 </form>

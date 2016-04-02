@@ -5,6 +5,7 @@ angular.module('MyApp', [])
     function($scope, $http) {
         $scope.feedback = {
             formVissible: false,
+            messageSent: false,
             name: '',
             email: '',
             message: '',
@@ -14,10 +15,18 @@ angular.module('MyApp', [])
             }
         }
 
-        $scope.showForm = function() {
+        $scope.toggleForm = function(value) {
+            $scope.feedback.formVissible = value;
             var form = angular.element(document.querySelector('form#notification'));
-            form.removeClass('hidden');
-            $scope.feedback.formVissible = true;
+            if ($scope.feedback.formVissible == true) {
+                form.removeClass('hidden');
+            } else {
+                form.addClass('hidden');
+            }
+
+            if ($scope.feedback.messageSent == true) {
+                $scope.feedback.messageSent = false; 
+            }
         }
 
         $scope.submit = function() {
@@ -27,15 +36,15 @@ angular.module('MyApp', [])
                 return false;
             } else {
                 $scope.feedback.errors.message = false;
-            };
+            }
 
             if ($scope.feedback.name.length == 0) {
                 $scope.feedback.name = 'Rysiek Anonim'
-            };
+            }
 
             if ($scope.feedback.email.length == 0) {
-                $scope.feedback.email = 'kontak@podlasiesiedziej.pl'
-            };
+                $scope.feedback.email = 'kontakt@podlasiesiedziej.pl'
+            }
 
             var fd = new FormData();
             fd.append('sendFeedbackForm[attachment]', $scope.feedback.file);
@@ -53,6 +62,12 @@ angular.module('MyApp', [])
                 }
             })
             .success(function(res) {
+                $scope.toggleForm(false);
+                $scope.feedback.messageSent = true
+                $scope.feedback.file = null;
+                $scope.feedback.message = null;
+            })
+            .error(function(res) {
                 console.log(res);
             });
         }
