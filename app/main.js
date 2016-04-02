@@ -3,41 +3,40 @@ angular.module('MyApp', [])
     '$scope',
     '$http',
     function($scope, $http) {
-        $scope.formVissible = false;
-        $scope.name = '';
-        $scope.email = '';
-        $scope.message = '';
-        $scope.errors = {
-            message: false
-        }
-
-        $scope.submit = function() {
-            $scope.upload($scope.file);
+        $scope.feedback = {
+            formVissible: false,
+            name: '',
+            email: '',
+            message: '',
+            file: '',
+            errors: {
+                message: false
+            }
         }
 
         $scope.showForm = function() {
             var form = angular.element(document.querySelector('form#notification'));
             form.removeClass('hidden');
-            $scope.formVissible = true;
+            $scope.feedback.formVissible = true;
         }
 
-        $scope.upload = function(file) {
-            if ($scope.message.length == 0) {
-                $scope.errors.message = 'Treść zgłoszenia nie może być pusta.'
+        $scope.submit = function() {
+            if ($scope.feedback.message.length == 0) {
+                $scope.feedback.errors.message = 'Treść zgłoszenia nie może być pusta.'
 
                 return false;
             }
 
             var fd = new FormData();
-            fd.append('sendFeedbackForm[attachment]', file);
-            fd.append('sendFeedbackForm[first_name]', $scope.name);
+            fd.append('sendFeedbackForm[attachment]', $scope.feedback.file);
+            fd.append('sendFeedbackForm[first_name]', $scope.feedback.name);
             fd.append('sendFeedbackForm[last_name]', '...');
-            fd.append('sendFeedbackForm[email]', $scope.email);
+            fd.append('sendFeedbackForm[email]', $scope.feedback.email);
             fd.append('sendFeedbackForm[subject]', 'Zgłoszenie od czytelnika.');
-            fd.append('sendFeedbackForm[message]', $scope.message);
+            fd.append('sendFeedbackForm[message]', $scope.feedback.message);
             fd.append('publication', newscoop.feedbackPlugin.publication);
             fd.append('feedbackUrl', newscoop.feedbackPlugin.feedbackUrl);
-            $http.post('/plugin/send-feedback', fd, {
+            $http.post('http://newscoop.dev/plugin/send-feedback', fd, {
                 transformRequest: angular.identity,
                 headers: {
                     'Content-Type': undefined
