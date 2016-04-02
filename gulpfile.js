@@ -39,6 +39,9 @@ gulp.task('prod', function () {
     .pipe(uglify()).on('error', errorHandler)
     .pipe(gulp.dest('./dist/js'));
 
+    gulp
+    .src(['./assets/templates/*'])
+    .pipe(gulp.dest('./dist/templates'));
 
     gulp
     .src([

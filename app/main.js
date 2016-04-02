@@ -4,9 +4,9 @@ angular.module('MyApp', [])
     '$http',
     function($scope, $http) {
         $scope.formVissible = false;
-        $scope.name = null;
-        $scope.email = null;
-        $scope.message = null;
+        $scope.name = '';
+        $scope.email = '';
+        $scope.message = '';
         $scope.errors = {
             message: false
         }
@@ -30,26 +30,21 @@ angular.module('MyApp', [])
 
             var fd = new FormData();
             fd.append('sendFeedbackForm[attachment]', file);
-            if ($scope.name) {
-                fd.append('sendFeedbackForm[first_name]', $scope.name);
-                fd.append('sendFeedbackForm[last_name]', '...');
-            }
-            if ($scope.email) {
-                fd.append('sendFeedbackForm[email]', $scope.email);
-            }
-
+            fd.append('sendFeedbackForm[first_name]', $scope.name);
+            fd.append('sendFeedbackForm[last_name]', '...');
+            fd.append('sendFeedbackForm[email]', $scope.email);
             fd.append('sendFeedbackForm[subject]', 'Zgłoszenie od czytelnika.');
             fd.append('sendFeedbackForm[message]', $scope.message);
             fd.append('publication', newscoop.feedbackPlugin.publication);
             fd.append('feedbackUrl', newscoop.feedbackPlugin.feedbackUrl);
-            $http.post('http://newscoop.dev/plugin/send-feedback', fd, {
+            $http.post('/plugin/send-feedback', fd, {
                 transformRequest: angular.identity,
                 headers: {
                     'Content-Type': undefined
                 }
             })
             .success(function(res) {
-                console.log(res);  
+                console.log(res);
             });
         }
     }
